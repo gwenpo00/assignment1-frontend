@@ -1,0 +1,44 @@
+import React, { useEffect, useContext } from "react";
+import GlobalContext from "./GlobalContext";
+import { useNavigate } from "react-router-dom";
+
+function HeaderLoggedIn(props) {
+  const { handleCookie } = useContext(GlobalContext);
+
+  const navigate = useNavigate();
+  function handleLogout() {
+    handleCookie();
+    navigate("/");
+  }
+
+  return (
+    <div className="flex-row my-3 my-md-0">
+      {/* <a href="#" className="text-white mr-2 header-search-icon">
+        <i className="fas fa-search"></i>
+      </a> */}
+      {/* <span className="mr-2 header-chat-icon text-white">
+        <i className="fas fa-comment"></i>
+        <span className="chat-count-badge text-white"> </span>
+      </span>
+      <a href="#" className="mr-2">
+        <img
+          className="small-header-avatar"
+          //   src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128"
+          src={localStorage.getItem("complexappAvatar")}
+        />
+      </a> */}
+      <a className="btn btn-sm btn-success mr-2" href="/userManagement">
+        User Management
+      </a>
+      <a className="btn btn-sm btn-success mr-2" href="/profile">
+        My Profile
+      </a>
+      {/* <button onClick={() => props.setLoggedIn(false)} className="btn btn-sm btn-secondary">Sign Out</button> */}
+      <button onClick={handleLogout} className="btn btn-sm btn-secondary">
+        Sign Out
+      </button>
+    </div>
+  );
+}
+
+export default HeaderLoggedIn;
