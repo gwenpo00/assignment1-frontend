@@ -56,24 +56,6 @@ function ViewAllUsers({ user, setRefreshUser }) {
     getAllGroups();
   }, []);
 
-  // Function to check password requirements
-//   const checkPasswordRequirements = (password) => {
-//     // Check if the password meets the requirements
-//     const passwordRegex =
-//       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,10}$/;
-//     if (!passwordRegex.test(password)) {
-//       // If the password doesn't meet the requirements, show a toast message
-//       toast.error(
-//         "Password must be 8-10 characters and include alphabets, numbers, and special characters.",
-//         {
-//           autoClose: 700,
-//         }
-//       );
-//       return false;
-//     }
-//     return true;
-//   };
-
   async function handleSave(e) {
     e.preventDefault();
     try {

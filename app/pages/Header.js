@@ -11,6 +11,8 @@ function Header() {
   // const loggedIn = Boolean(localStorage.getItem("complexappToken"));
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
     console.log("Running useEffect to check if user is admin");
     async function checkGroup(groupname) {

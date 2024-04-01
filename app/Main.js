@@ -18,6 +18,8 @@ import LoginPage from "./pages/LoginPage";
 import ProfilePageUser from "./pages/ProfilePageUser";
 import UserManagementPage from "./pages/UserManagementPage";
 import Home from "./pages/Home";
+import ApplicationPage from "./pages/ApplicationPage";
+import KanbanPage from "./pages/KanbanPage";
 
 function Main() {
   const [loggedIn, setLoggedIn] = useState(
@@ -25,6 +27,7 @@ function Main() {
     // Boolean(localStorage.getItem("complexappToken"))
   );
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isProjectLead, setIsProjectLead] = useState(false);
 
   //   const [isActive, setIsActive] = useState(false);
 
@@ -75,16 +78,11 @@ function Main() {
   }, []);
 
   return (
-    <GlobalContext.Provider value={{ handleCookie, setIsAdmin, isAdmin }}>
+    <GlobalContext.Provider value={{ handleCookie, setIsAdmin, isAdmin, isProjectLead, setIsProjectLead }}>
       <BrowserRouter>
         <>{loggedIn ? <Header setLoggedIn={setLoggedIn} /> : <div />}</>
         <ToastContainer />
         <Routes>
-          {/* <Route path="/" element={loggedIn ? <Home /> : <HomeGuest />} /> */}
-          {/* <Route path="/home" element={loggedIn ? <About /> : <HomeGuest />} /> */}
-          {/* <Route path="/home" 
-          element={<About />} /> */}
-
           <Route
             path="/usermanagement"
             element={loggedIn ? <UserManagementPage /> : <LoginPage />}
@@ -98,6 +96,12 @@ function Main() {
           <Route
             path="/profile"
             element={loggedIn ? <ProfilePageUser /> : <LoginPage />}
+          />
+          <Route
+            path="/app/:app_acronym"
+            element={loggedIn ? <KanbanPage /> : <LoginPage 
+            // component={KanbanPage}
+            />}
           />
         </Routes>
         <Footer />

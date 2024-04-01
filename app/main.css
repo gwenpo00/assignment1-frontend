@@ -430,6 +430,14 @@ body {
     outline: none;
     font-size: 0.75rem;
   }
+
+  .float-left-child {
+    float: left;
+  }
+
+  .float-right-child {
+    float: right;
+  }
   
   .floating-alert {
     display: none;

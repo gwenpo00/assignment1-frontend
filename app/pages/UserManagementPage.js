@@ -127,6 +127,17 @@ function UserManagementPage() {
 
   async function handleAddUsers(e) {
     e.preventDefault();
+    const validUsername = /^(?=.*[a-zA-Z])[a-zA-Z0-9]+$/.test(newUsername);
+    if (!validUsername) {
+      toast.error(
+        "Username should only contain letters and numbers, and no spaces or special characters.",
+        {
+          autoClose: 700,
+        }
+      );
+      return;
+    }
+  
     try {
       if (!checkPasswordRequirements(newPassword)) {
         return;
@@ -140,7 +151,7 @@ function UserManagementPage() {
       });
       console.log("TESTING123", newUserGroup);
       console.log(response);
-      if (response.data) {
+      if (response.data.message.includes("added")) {
         document.getElementById("newUsername").value = "";
         document.getElementById("newPassword").value = "";
         document.getElementById("newEmail").value = "";
@@ -151,25 +162,35 @@ function UserManagementPage() {
           autoClose: 700,
         });
       } else {
+        // Log the response data when the request is successful but the server returns an error
         console.log(response.data.message);
-        throw new Error(response.data.message);
+        toast.error("Failed to add user!", {
+          autoClose: 700,
+        });
       }
     } catch (error) {
-      if (error.response.data.message.includes("not authorised")) {
+      // Log the entire error object to understand its structure
+      console.log(error);
+  
+      // If needed, you can access specific properties of the error object
+      if (error.response && error.response.data) {
+        console.log(error.response.data);
+      }
+  
+      // Handle the error or rethrow it
+      if (error.response && error.response.data.message.includes("not authorised")) {
         navigate("/");
         toast.error("You are not authorised!", {
           autoClose: 700,
         });
+      } else {
+        toast.error("Failed to add user123!", {
+          autoClose: 700,
+        });
       }
-      console.log(newUserGroup);
-      toast.error("Failed to add user!", {
-        autoClose: 700,
-      });
-      console.log("Failed to add user");
-      console.log(error);
     }
   }
-
+  
   useEffect(() => {
     console.log("Getting profile information");
     async function getProfileDetails() {
